@@ -1,0 +1,41 @@
+# Dependencias
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Archivos de entorno
+.env
+.env.*
+
+# Logs
+logs
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Docker (opcional)
+Dockerfile
+.dockerignore
+
+# Tests / coverage
+coverage
+*.test.js
+
+# Archivos temporales
+tmp
+temp
+
+# Editor/IDE
+.vscode
+.idea
+
+# Archivos subidos (se manejan por volumen)
+uploads
+src/uploads

@@ -1,0 +1,58 @@
+node_modules/
+.env
+dist
+
+# Documentos
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.txt
+
+# Imágenes
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.svg
+*.webp
+
+# Videos
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.flv
+*.wmv
+
+# Audios
+*.mp3
+*.wav
+*.ogg
+*.aac
+
+# APKs
+*.apk
+
+# Otros binarios pesados o temporales
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.exe
+*.bin
+
+# Ignorar archivos de video y audio
+*.mp4
+*.mp4a
+
+*.mp3
+
+# Ignorar todo el contenido de la carpeta temp
+temp/
+APK/

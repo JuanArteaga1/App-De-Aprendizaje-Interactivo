@@ -1,0 +1,413 @@
+@import "tailwindcss";
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+/* Design tokens */
+:root {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-foreground: #ffffff;
+  --color-surface: #ffffff;
+  --color-sidebar: #e4e9f2;
+  --color-background: #fafafa;
+  --color-muted: #64748b;
+  --color-border: #e8e8ec;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.06);
+  --shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.05), 0 2px 4px -2px rgb(15 23 42 / 0.05);
+  --shadow-sidebar: 1px 0 0 rgb(15 23 42 / 0.06), 4px 0 24px rgb(15 23 42 / 0.04);
+  --nav-h: 4rem;
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Navbar: blur solo desde md; en móvil superficie sólida (rendimiento). */
+@media (min-width: 768px) {
+  .nav-surface {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+
+@media (max-width: 767px) {
+  .nav-surface {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  background-color: var(--color-background);
+  color: #0f172a;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.swal2-popup.swal2-toast {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* ===== HERO / CARRUSEL ===== */
+.hero img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.slick-dots {
+  position: absolute !important;
+  bottom: 20px !important;
+  width: 100%;
+  display: flex !important;
+  justify-content: center;
+  z-index: 20;
+}
+
+.slick-dots li button:before { display: none !important; }
+
+.slick-dots li button {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.slick-dots li.slick-active button {
+  background-color: rgba(255, 255, 255, 1) !important;
+}
+
+/* ===== CATEGORÍAS ===== */
+.category-box img {
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+.social-media a { text-decoration: none; }
+.social-media a:hover { text-decoration: underline; }
+
+.fade-in-up { animation: fadeInUp 1s ease-out forwards; }
+
+/* ===== LOGIN ===== */
+.login-container h2 { margin-bottom: 20px; }
+.login-container form { display: flex; flex-direction: column; gap: 10px; }
+.login-container input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+.login-container button { background-color: #007bff; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+.login-container button:hover { background-color: #0056b3; }
+
+/* ===== SECCIÓN HERO CON IMAGEN (Simulaciones / Apps) ===== */
+.imagen-seccion {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 200px;
+}
+
+@media (min-width: 640px) {
+  .imagen-seccion { height: 300px; }
+}
+
+@media (min-width: 1024px) {
+  .imagen-seccion { height: 460px; }
+}
+
+.imagen-seccion img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.titulo-seccion {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.65);
+  text-align: center;
+  width: 90%;
+}
+
+@media (min-width: 768px) {
+  .titulo-seccion { font-size: 2rem; }
+}
+
+/* ===== CONTENEDOR PRINCIPAL PROYECTOS ===== */
+.simulaciones, .aplicaciones-moviles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contenido-proyectos {
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .contenido-proyectos { padding: 0 2rem; }
+}
+
+.presentacion img { position: relative; width: 100%; overflow: hidden; }
+
+h2 { text-align: left; width: 100%; font-weight: bold; }
+
+.categorias { display: flex; flex-direction: column; align-items: flex-start; margin-left: 20px; }
+
+.categoria { background: #f3f3f3; padding: 16px; border-radius: 10px; }
+
+/* ===== TARJETAS CON FLIP (Appmovil & Simulaciones) ===== */
+/* Wrapper responsive */
+.flip-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0.5rem;
+  justify-items: center;
+}
+
+@media (min-width: 640px) {
+  .flip-card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .flip-card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Tarjeta */
+.flip-card {
+  width: 100%;
+  max-width: 340px;
+  height: 420px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .flip-card { max-width: 384px; height: 490px; }
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+}
+
+/* Hover solo en dispositivos que lo soportan */
+@media (hover: hover) {
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Click/touch en dispositivos táctiles */
+.flip-card.is-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+}
+
+.flip-card-front { background: #fff; }
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  background-color: #1e3a8a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  overflow-y: auto;
+}
+
+/* Hint de toque en móvil */
+.flip-card-touch-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.45);
+  color: white;
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@media (hover: hover) {
+  .flip-card-touch-hint { display: none; }
+}
+
+/* ===== TARJETAS LEGACY (.card) ===== */
+.cards-container {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 20px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cards-container::-webkit-scrollbar { height: 8px; }
+.cards-container::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 4px; }
+
+.card {
+  width: 300px;
+  height: 380px;
+  perspective: 1000px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .card { width: 380px; height: 420px; }
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+@media (hover: hover) {
+  .card:hover .card-inner { transform: rotateY(180deg); }
+}
+
+.card.is-flipped .card-inner { transform: rotateY(180deg); }
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.card-back::-webkit-scrollbar { display: none; }
+.card-front { background-color: #fff; }
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-back {
+  background-color: #3C64C9;
+  color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.card-back h3 { margin-bottom: 20px; color: #ffffff; }
+.card-back button { padding: 5px 10px; background-color: #121e3b; color: #ffffff; border: none; border-radius: 5px; cursor: pointer; }
+.card-back button:hover { background-color: white; color: black; }
+
+/* ===== RESPONSIVIDAD GENERAL ===== */
+@media (max-width: 768px) {
+  .contenedor-investigaciones { flex-direction: column; }
+  .sidebar { width: 100%; }
+  .lista-investigaciones { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+  .card-investigacion { width: 100%; }
+  .category-box img { width: 80px; }
+  .about-us { flex-direction: column; text-align: center; }
+  .about-us > div { width: 100% !important; padding: 0 !important; }
+}
+
+/* ===== PANELS ADMIN / DOCENTE CON SIDEBAR ===== */
+.panel-layout {
+  display: flex;
+  min-height: 100dvh;
+}
+
+/* Botón hamburguesa para mostrar sidebar en móvil */
+.sidebar-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 50;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.5);
+}
+
+@media (min-width: 768px) {
+  .sidebar-toggle-btn { display: none; }
+}
+
+/* Overlay oscuro */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 18;
+  backdrop-filter: blur(2px);
+}
+
+.sidebar-overlay.visible { display: block; }
+
+.transition-height {
+  transition: max-height 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
