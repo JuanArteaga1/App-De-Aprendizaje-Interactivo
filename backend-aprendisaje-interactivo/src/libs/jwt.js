@@ -1,12 +1,10 @@
-require('dotenv').config();
-const Token_Secreta = process.env.Token_Secreta;
 const jwt = require("jsonwebtoken");
 
 exports.CreateToken = async (payload) => {
     return new Promise((resolve, reject) => {
         jwt.sign(
             { payload }, // lo que vas a guardar dentro del token
-            Token_Secreta,
+            process.env.TOKEN_SECRETA,
             { expiresIn: "1d" }, // duración del token
             (err, token) => {
                 if (err) reject(err);
@@ -28,7 +26,7 @@ exports.VerifyToken = async (req, res) => {
     }
     
     try {
-        const decoded = jwt.verify(token, Token_Secreta);
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRETA);
         console.log("Token decodificado completo:", decoded);
         
         return decoded.payload || decoded;

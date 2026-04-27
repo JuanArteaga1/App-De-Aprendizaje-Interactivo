@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
@@ -16,7 +17,6 @@ const Rfuncion = require('./routes/FuncionRoutes.js');
 const RMateria = require('./routes/MateriaRoutes.js');
 const RSimulaciones = require('./routes/SimulacionesRoutes.js');
 const RTraerProyectos = require('./routes/TraerProyectosRoutes.js')
-require('dotenv').config();
 
 const app = express();
 app.use(cors({
