@@ -88,12 +88,12 @@ const MenuAdministrador = ({
 
   // Selecciona las opciones basadas en el rol, o usa las de docente como fallback
   const opciones = opcionesMenu[rol] || opcionesMenu.docente;
-  const anchoRail = colapsado ? "w-16" : "w-[17.5rem]";
+  const anchoRail = colapsado ? "lg:w-16" : "lg:w-[17.5rem]";
 
   return (
     // Contenedor principal: usa 'flex flex-col' para apilar elementos y 'h-full' para tomar toda la altura.
     <div
-      className={`flex h-full min-h-0 flex-col border-r border-slate-300/50 bg-[var(--color-sidebar)] text-slate-900 shadow-[var(--shadow-sidebar)] transition-[width] duration-200 ease-out ${anchoRail}`}
+      className={`flex h-full min-h-0 w-72 max-w-[86vw] flex-col border-r border-slate-300/50 bg-[var(--color-sidebar)] text-slate-900 shadow-[var(--shadow-sidebar)] transition-[width] duration-200 ease-out ${anchoRail}`}
     >
       <div className="relative flex h-14 shrink-0 items-center border-b border-slate-300/40 px-3">
         {!colapsado && (
@@ -109,7 +109,7 @@ const MenuAdministrador = ({
         <button
           type="button"
           onClick={() => setColapsado(!colapsado)}
-          className="absolute -right-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-slate-300/50 bg-[var(--color-sidebar)] text-slate-600 shadow-[var(--shadow-sm)] transition duration-200 ease-out hover:scale-[1.02] hover:bg-white/60 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+          className="absolute -right-3 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-slate-300/50 bg-[var(--color-sidebar)] text-slate-600 shadow-[var(--shadow-sm)] transition duration-200 ease-out hover:scale-[1.02] hover:bg-white/60 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 lg:flex"
           aria-label={colapsado ? "Expandir menú lateral" : "Contraer menú lateral"}
         >
           {colapsado ? (

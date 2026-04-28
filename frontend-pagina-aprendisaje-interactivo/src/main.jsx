@@ -55,6 +55,7 @@ import ListaCategorias from "./pages/ListaCategorias";
 
 import NuevaMateria from "./pages/NuevaMateria";
 import ListaMaterias from "./pages/ListaMaterias";
+import MateriaContenido from "./pages/MateriaContenido";
 
 import Comentarios from "./pages/Comentarios";
 
@@ -91,6 +92,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/Fisica" element={<SimulacionesProvider> <ProyectosProvider><Fisica /></ProyectosProvider> </SimulacionesProvider>} />
         <Route path="/IngCivil" element={<SimulacionesProvider> <ProyectosProvider><IngCivil /></ProyectosProvider> </SimulacionesProvider>} />
         <Route path="/Matematicas" element={<SimulacionesProvider> <ProyectosProvider><Matematicas /></ProyectosProvider> </SimulacionesProvider>} />
+        <Route path="/materias/:id/contenido" element={<MateriaContenido />} />
         <Route path="/detalle/:id" element={<ProyectosProvider><DetalleProyecto /></ProyectosProvider>} />
         <Route path="/detalle-simulacion/:id" element={<SimulacionesProvider><DetalleSimulacion /></SimulacionesProvider>} />
         <Route path="/investigaciones/:id" element={<InvestigacionProvider><InvestigacionDetalle /></InvestigacionProvider>} />
