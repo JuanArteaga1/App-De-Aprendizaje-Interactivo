@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useProyectos } from "../context/ProyectoContext";
+import UniversityLogoBadge from "../components/UniversityLogoBadge";
 
 const formatAutores = (autores) => {
   if (!autores) return "No especificado";
@@ -76,11 +77,7 @@ const AppCard = ({ app, imagenURL, onVerMas }) => {
             Ver más
           </button>
 
-          <div className="absolute bottom-4 right-4 text-right opacity-80">
-            <span className="text-xs font-bold leading-tight tracking-wide">
-              Universidad<br />Autónoma<br />del Cauca
-            </span>
-          </div>
+          <UniversityLogoBadge />
         </div>
       </div>
     </div>

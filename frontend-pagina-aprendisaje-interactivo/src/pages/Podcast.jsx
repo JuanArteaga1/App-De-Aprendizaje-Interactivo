@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { usePodcast } from "../context/PodcastContext";
+import UniversityLogoBadge from "../components/UniversityLogoBadge";
 
 const Podcast = () => {
   const [seccionActual] = useState("Podcasts");
@@ -131,13 +132,7 @@ const Podcast = () => {
                   </a>
 
                   {/* Footer */}
-                  <div className="absolute bottom-6 right-6 text-right opacity-90">
-                    <span className="text-base font-bold leading-tight tracking-wide">
-                      Universidad<br />
-                      Autónoma<br />
-                      del Cauca
-                    </span>
-                  </div>
+                  <UniversityLogoBadge className="bottom-6 right-6" />
                 </div>
               </div>
             </div>

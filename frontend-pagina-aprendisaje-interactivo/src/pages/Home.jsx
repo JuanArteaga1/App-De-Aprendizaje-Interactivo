@@ -1,14 +1,63 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Slider from "react-slick";
-import CategoryBox from "../components/CategoryBox";
 import { PrevArrow, NextArrow } from "../components/CustomArrows";
+import { GetAllMateria } from "../api/AdmiMateria";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [materias, setMaterias] = useState([]);
+  const [loadingMaterias, setLoadingMaterias] = useState(true);
+  const [materiasError, setMateriasError] = useState("");
+
+  useEffect(() => {
+    let cancelado = false;
+    const cargarMaterias = async () => {
+      try {
+        setLoadingMaterias(true);
+        setMateriasError("");
+        const response = await GetAllMateria();
+        if (cancelado) return;
+        const data = Array.isArray(response.data) ? response.data : [];
+        setMaterias(data);
+      } catch (error) {
+        console.error("Error consultando materias:", error);
+        if (!cancelado) {
+          setMaterias([]);
+          setMateriasError(
+            "No fue posible cargar las materias. Verifica la conexión con el servidor."
+          );
+        }
+      } finally {
+        if (!cancelado) setLoadingMaterias(false);
+      }
+    };
+
+    cargarMaterias();
+    return () => {
+      cancelado = true;
+    };
+  }, []);
+
+  const materiasUI = useMemo(() => {
+    return materias.map((materia) => ({
+      id: materia._id,
+      nombre: materia.nombre || "Materia sin nombre",
+      descripcion:
+        materia.descripcion ||
+        "Explora contenido académico disponible para esta materia.",
+      imagen:
+        materia.imagen ||
+        (materia.nombre?.toLowerCase().includes("fisi")
+          ? "/img/physics.png"
+          : materia.nombre?.toLowerCase().includes("mat")
+            ? "/img/math.png"
+            : "/img/civil.png"),
+    }));
+  }, [materias]);
 
   const settings = {
     dots: true,
@@ -18,6 +67,7 @@ const Home = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
+    pauseOnHover: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
   };
@@ -71,19 +121,61 @@ const Home = () => {
         </Slider>
       </div>
 
-      {/* Sección de categorías */}
+      {/* Sección de materias */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
-          Explora nuestras categorías
+          Explora Materias
         </h2>
         <p className="mx-auto mb-12 max-w-2xl text-center text-lg text-slate-600">
-          Elige un área y accede a simulaciones, apps y materiales curados.
+          Consulta materias disponibles y accede a su contenido académico.
         </p>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-          <CategoryBox title="FÍSICA" image="/img/physics.png" path="/Fisica" />
-          <CategoryBox title="ING CIVIL" image="/img/civil.png" path="/IngCivil" />
-          <CategoryBox title="MATEMÁTICAS" image="/img/math.png" path="/Matematicas" />
-        </div>
+        {loadingMaterias ? (
+          <div className="flex min-h-[140px] items-center justify-center rounded-2xl border border-slate-200 bg-white">
+            <p className="text-sm text-slate-600">Cargando materias...</p>
+          </div>
+        ) : materiasError ? (
+          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-6 text-center text-sm text-red-700">
+            {materiasError}
+          </div>
+        ) : materiasUI.length === 0 ? (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-6 text-center text-sm text-amber-700">
+            No hay materias registradas en este momento.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 md:gap-8">
+            {materiasUI.map((materia) => (
+              <button
+                key={materia.id}
+                type="button"
+                onClick={() => navigate(`/materias/${materia.id}/contenido`)}
+                className="group relative min-h-[240px] rounded-2xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-slate-100 p-6 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#3C64C9]/30 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+              >
+                <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <div className="h-full w-full bg-[radial-gradient(circle_at_top_right,_rgba(60,100,201,0.18),_transparent_50%)]" />
+                </div>
+                <div className="relative z-10">
+                  <span className="inline-flex rounded-full bg-[#3C64C9]/10 px-3 py-1 text-xs font-semibold tracking-wide text-[#3C64C9]">
+                    Materia
+                  </span>
+                  <h3 className="mt-4 line-clamp-2 text-2xl font-bold text-slate-900">
+                    {materia.nombre}
+                  </h3>
+                  <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-600">
+                    {materia.descripcion}
+                  </p>
+                </div>
+                <div className="relative z-10 mt-6 flex items-center justify-between">
+                  <span className="text-sm font-semibold text-[#3C64C9] transition group-hover:text-[#274a9d]">
+                    Ver contenido
+                  </span>
+                  <span className="rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-600">
+                    Disponible
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Sección Quiénes somos */}

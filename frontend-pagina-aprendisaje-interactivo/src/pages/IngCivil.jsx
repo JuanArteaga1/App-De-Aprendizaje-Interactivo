@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useProyectos } from "../context/ProyectoContext";
 import { UseSimulaciones } from "../context/SimulacionesContex";
+import UniversityLogoBadge from "../components/UniversityLogoBadge";
 
 const IngCivil = () => {
   const { Proyectos, TraerProyectos } = useProyectos();
@@ -165,18 +166,18 @@ const IngCivil = () => {
 
                   <button
                     className="bg-yellow-400 text-blue-900 font-bold py-3 px-6 rounded-md text-lg uppercase tracking-wide shadow-md hover:bg-yellow-500 transition-all duration-300 w-fit"
-                    onClick={() => navigate(`/detalle/${app._id}`)}
+                    onClick={() =>
+                      navigate(
+                        app.tipo === "Simulación"
+                          ? `/detalle-simulacion/${app._id}`
+                          : `/detalle/${app._id}`
+                      )
+                    }
                   >
                     Ver más
                   </button>
 
-                  <div className="absolute bottom-6 right-6 text-right opacity-90">
-                    <span className="text-base font-bold leading-tight tracking-wide">
-                      Universidad<br />
-                      Autónoma<br />
-                      del Cauca
-                    </span>
-                  </div>
+                  <UniversityLogoBadge className="bottom-6 right-6" />
                 </div>
               </div>
             </div>
